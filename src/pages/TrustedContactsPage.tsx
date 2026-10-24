@@ -126,7 +126,7 @@ export const TrustedContactsPage: React.FC = () => {
 
       {/* Contacts List Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {trustedContacts.map((contact) => (
+        {trustedContacts.map((contact: TrustedContact) => (
           <div
             key={contact.id}
             className={`glass-card p-5 rounded-3xl border transition-all space-y-4 ${
