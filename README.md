@@ -79,7 +79,7 @@ WEB3FORMS_ACCESS_KEY=your_web3forms_access_key
 VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_access_key
 ```
 
-### 4. Running the Application
+### 4. Running the Application Locally
 Run both the frontend and backend servers concurrently:
 ```bash
 npm run dev:all
@@ -88,6 +88,31 @@ npm run dev:all
 Or run them individually:
 - **Frontend App**: `npm run dev` *(Runs on http://localhost:3000)*
 - **Backend API**: `npm run server` *(Runs on http://localhost:5000)*
+
+---
+
+## ☁️ Deploy to Render (Free)
+
+This repository includes a `render.yaml` blueprint for 1-click deployment on [Render](https://render.com).
+
+### Option 1: Automatic Blueprint (Recommended)
+1. Sign up or log in to [Render](https://render.com) with your GitHub account.
+2. Go to [dashboard.render.com/blueprints](https://dashboard.render.com/blueprints).
+3. Click **New Blueprint Instance**.
+4. Select `AbhayDubey78/SafeHer-Women-Emergency-and-Support-System`.
+5. Enter your environment variables (`WEB3FORMS_ACCESS_KEY`, `VITE_WEB3FORMS_ACCESS_KEY`, `MSG91_AUTH_KEY`, etc.) and click **Apply**.
+6. Render will automatically build both frontend & backend and deploy your full-stack app on a free `.onrender.com` URL!
+
+### Option 2: Manual Web Service
+1. On Render, click **New +** → **Web Service**.
+2. Connect `AbhayDubey78/SafeHer-Women-Emergency-and-Support-System`.
+3. Settings:
+   - **Environment**: `Node`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Plan**: `Free`
+4. Add your `.env` variables under the **Environment** tab.
+5. Click **Deploy Web Service**. Render serves the built React frontend and Express API together with zero CORS issues!
 
 ---
 

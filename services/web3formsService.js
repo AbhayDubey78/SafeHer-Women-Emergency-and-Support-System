@@ -35,9 +35,10 @@ export function submitToWeb3Forms(payload) {
   const payloadString = typeof payload === 'string' ? payload : JSON.stringify(payload);
 
   return new Promise((resolve) => {
-    // 1. Try system curl first (avoids Cloudflare WAF JA3/TLS block)
+    // 1. Try system curl first (avoids Cloudflare WAF JA3/TLS block across Windows and Linux)
     try {
-      const curl = spawn('curl.exe', [
+      const curlBin = process.platform === 'win32' ? 'curl.exe' : 'curl';
+      const curl = spawn(curlBin, [
         '-s',
         '-X', 'POST',
         'https://api.web3forms.com/submit',

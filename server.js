@@ -1,12 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import twilio from 'twilio';
 import nodemailer from 'nodemailer';
 import rateLimit from 'express-rate-limit';
 import { sendEmergencyEmail, isWeb3FormsConfigured, submitToWeb3Forms } from './services/web3formsService.js';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -774,6 +779,23 @@ app.post('/api/web3forms/submit', async (req, res) => {
   } catch (err) {
     return res.status(500).json({ success: false, message: err.message });
   }
+});
+
+// =============================================================================
+// PRODUCTION STATIC FRONTEND SERVING
+// =============================================================================
+const distPath = path.join(__dirname, 'dist');
+app.use(express.static(distPath));
+
+// For all non-API GET requests, serve React SPA index.html
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    return next();
+  }
+  const indexPath = path.join(distPath, 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) next();
+  });
 });
 
 app.listen(PORT, () => {
